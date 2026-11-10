@@ -1,0 +1,7 @@
+project_id = "dom-navalha"
+
+[functions.create-appointment]
+verify_jwt = false
+
+[functions.pix-webhook]
+verify_jwt = false
