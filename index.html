@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171717">
+  <meta name="description" content="Dom Navalha Barbearia. Agende seu horário online.">
+  <title>Dom Navalha | Barbearia</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/assets/icons/icon-192.png">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio">
+      <span class="brand-mark">DN</span>
+      <span>DOM NAVALHA<small>BARBEARIA</small></span>
+    </a>
+    <button id="menuButton" class="menu-button" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    <nav id="mainNav">
+      <a href="#inicio">Início</a><a href="#servicos">Serviços</a>
+      <a href="#profissionais">Barbeiros</a><a href="#agendar">Agendar</a>
+      <button id="loginButton" class="btn btn-outline" type="button">Entrar</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-content">
+        <span class="eyebrow">TRADIÇÃO • ESTILO • PERSONALIDADE</span>
+        <h1>Seu estilo.<br><span>Nossa assinatura.</span></h1>
+        <p>Um atendimento de qualidade, no horário que funciona para você.</p>
+        <a href="#agendar" class="btn">AGENDAR HORÁRIO</a>
+      </div>
+    </section>
+
+    <section class="section" id="servicos">
+      <div class="section-heading"><span class="eyebrow">NOSSO TRABALHO</span><h2>Serviços</h2></div>
+      <div id="servicesList" class="cards"><p class="muted">Carregando serviços...</p></div>
+    </section>
+
+    <section class="section" id="profissionais">
+      <div class="section-heading"><span class="eyebrow">NOSSA EQUIPE</span><h2>Os profissionais</h2></div>
+      <div id="barbersList" class="cards"><p class="muted">Carregando profissionais...</p></div>
+    </section>
+
+    <section class="section booking-section" id="agendar">
+      <div class="section-heading">
+        <span class="eyebrow">RESERVE SEU HORÁRIO</span><h2>Agendamento online</h2>
+        <p>Entre na sua conta e escolha serviço, profissional, data e horário.</p>
+      </div>
+      <form id="bookingForm" class="booking-form">
+        <label for="service">1. Escolha o serviço</label>
+        <select id="service" required><option value="">Selecione um serviço</option></select>
+        <label for="barber">2. Escolha o profissional</label>
+        <select id="barber" required><option value="">Qualquer barbeiro</option></select>
+        <label for="bookingDate">3. Escolha a data</label>
+        <input type="date" id="bookingDate" required>
+        <label for="bookingTime">4. Horário disponível</label>
+        <select id="bookingTime" required disabled><option value="">Selecione serviço e data</option></select>
+        <label for="clientName">5. Seu nome completo</label>
+        <input id="clientName" type="text" maxlength="120" placeholder="Seu nome" autocomplete="name" required>
+        <label for="clientPhone">Celular</label>
+        <input id="clientPhone" type="tel" maxlength="20" placeholder="(00) 00000-0000" autocomplete="tel" required>
+        <label for="clientEmail">E-mail</label>
+        <input id="clientEmail" type="email" maxlength="254" placeholder="seu@email.com" autocomplete="email" required>
+        <button class="btn btn-full" type="submit">CONFIRMAR AGENDAMENTO</button>
+        <p id="bookingMessage" class="message" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="section about">
+      <span class="eyebrow">DOM NAVALHA BARBEARIA</span>
+      <h2>Mais que um corte.<br>Uma experiência.</h2>
+      <p id="businessAddress">Endereço a ser cadastrado pelo administrador.</p>
+      <p id="businessHours">Horários de funcionamento a configurar.</p>
+    </section>
+  </main>
+
+  <footer><div class="brand">DOM NAVALHA</div><p>Tradição e estilo.</p><small>© <span id="year"></span> Dom Navalha Barbearia</small></footer>
+  <nav class="mobile-nav" aria-label="Navegação principal">
+    <a href="#inicio">⌂<small>Início</small></a><a href="#agendar">✂<small>Agendar</small></a>
+    <a href="#agendar">▣<small>Horários</small></a><a href="#servicos">♛<small>Serviços</small></a>
+    <button id="profileButton" type="button">♙<small>Perfil</small></button>
+  </nav>
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

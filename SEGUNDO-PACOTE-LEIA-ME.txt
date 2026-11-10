@@ -1,0 +1,66 @@
+DOM NAVALHA BARBEARIA — SEGUNDO PACOTE
+======================================
+
+CONTEÚDO
+- database/security.sql
+- database/functions.sql
+- supabase/functions/create-appointment/index.ts
+- supabase/functions/pix-webhook/index.ts
+- supabase/config.toml
+- js/admin.js
+- js/barber.js
+- js/client.js
+
+ORDEM DE INSTALAÇÃO
+1. Faça backup do banco.
+2. No Supabase > SQL Editor, execute database/security.sql.
+3. Execute database/functions.sql.
+4. Faça deploy das Edge Functions:
+   supabase functions deploy create-appointment
+   supabase functions deploy pix-webhook
+5. Configure os secrets:
+   supabase secrets set SUPABASE_URL=https://SEU-PROJETO.supabase.co
+   supabase secrets set SUPABASE_ANON_KEY=SUA_CHAVE_PUBLICA
+   supabase secrets set SUPABASE_SERVICE_ROLE_KEY=SUA_SERVICE_ROLE
+   supabase secrets set APP_ORIGIN=https://SEU-DOMINIO
+   supabase secrets set MP_ACCESS_TOKEN=SEU_TOKEN_MERCADO_PAGO
+   supabase secrets set MP_WEBHOOK_SECRET=SEU_SEGREDO_WEBHOOK
+   supabase secrets set MP_NOTIFICATION_URL=https://SEU-PROJETO.supabase.co/functions/v1/pix-webhook
+
+IMPORTANTE SOBRE A CHAVE SERVICE_ROLE
+- Nunca coloque SUPABASE_SERVICE_ROLE_KEY no HTML, CSS, JavaScript do navegador,
+  GitHub público ou arquivo .env enviado ao frontend.
+- Configure-a somente nos secrets do ambiente Supabase Edge Functions.
+
+CONFIGURAÇÕES DO BANCO
+- O schema.sql original não cria automaticamente escalas ou horários comerciais.
+- Cadastre ao menos um registro em business_hours para cada dia aberto.
+- Cadastre barber_schedules para cada barbeiro/dia de trabalho.
+- O primeiro administrador deve ser promovido manualmente no SQL Editor:
+  UPDATE public.profiles SET role = 'admin' WHERE id = 'UUID-DA-CONTA';
+- Vincule o usuário de cada barbeiro:
+  UPDATE public.profiles SET role = 'barber' WHERE id = 'UUID-DO-BARBEIRO';
+  UPDATE public.barbers SET user_id = 'UUID-DO-BARBEIRO' WHERE id = 'ID-DO-BARBEIRO';
+
+LIMITAÇÕES E TESTES OBRIGATÓRIOS
+- O Pix deste pacote está implementado para Mercado Pago. Asaas ainda exige
+  implementação específica de criação e validação de webhook.
+- Configure a URL de notificação no painel do Mercado Pago e use o segredo
+  de assinatura correspondente ao webhook.
+- Teste assinatura, pagamento aprovado, recusado, estornado e valor divergente.
+- A política RLS do schema inicial não é suficiente sem estes arquivos.
+- O painel JS fornece funções de dados, não uma página visual pronta. A interface
+  administrativa precisa importar e chamar essas funções.
+- O agendamento exige que o cliente esteja autenticado.
+- O formulário HTML inicial deve exibir login/cadastro antes de permitir reserva.
+- Para produção, configure APP_ORIGIN com a origem exata do site; evite "*".
+- Faça testes com duas contas tentando reservar o mesmo horário ao mesmo tempo.
+
+FUSO HORÁRIO
+A disponibilidade e a criação de reservas usam America/Fortaleza.
+Ajuste esse valor se a barbearia operar em outro fuso.
+
+OBSERVAÇÃO
+Este pacote é uma base de implementação e precisa ser testado no seu projeto
+Supabase, com seus dados, credenciais, regras comerciais e provedor Pix.
+Não publique como sistema de produção sem revisão e testes de segurança.
